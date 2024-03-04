@@ -1,8 +1,9 @@
 export default function appendToEachArrayValue(array, appendString) {
-  for (const idx of array) {
-    const value = array[idx];
-   [`${array[idx]}`] = `${appendString}${value}`;
+  const arrayCopy = [...array];
+  for (const value of arrayCopy) {
+    const index = arrayCopy.indexOf(value);
+    arrayCopy[index] = `${appendString}${value}`;
   }
 
-  return array;
+  return arrayCopy;
 }
