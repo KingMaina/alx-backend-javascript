@@ -5,7 +5,6 @@ export const weakMap = new WeakMap();
  * @param {Object} endpoint - object with protocol and URI
  */
 export function queryAPI(endpoint) {
-  const timesAPIQueried = weakMap.get(endpoint);
   if (!weakMap.has(endpoint)) {
     weakMap.set(endpoint, 1);
   } else if (weakMap.get(endpoint) >= 5) {
