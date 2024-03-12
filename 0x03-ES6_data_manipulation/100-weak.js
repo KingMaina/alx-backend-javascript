@@ -1,10 +1,17 @@
 export const weakMap = new WeakMap();
-export default function queryAPI(endpoint) {
+
+/**
+ * Throttles a fake API call usiing a WeakMap
+ * @param {Object} endpoint - object with protocol and URI
+ */
+export function queryAPI(endpoint) {
   const timesAPIQueried = weakMap.get(endpoint);
-  if (!timesAPIQueried) {
+  if (!weakMap.has(endpoint)) {
     weakMap.set(endpoint, 1);
-  } else if (timesAPIQueried >= 5) {
+  } else if (weakMap.get(endpoint) >= 5) {
     throw new Error('Endpoint load is high');
+  } else {
+    const timesAPIQueried = weakMap.get(endpoint);
+    weakMap.set(endpoint, timesAPIQueried + 1);
   }
-  weakMap.set(endpoint, timesAPIQueried + 1);
 }
